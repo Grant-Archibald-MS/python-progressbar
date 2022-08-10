@@ -26,6 +26,8 @@ extra.set(False)
 timeLimit.set(0)
 total.set(80)
 label = StringVar()
+visible = BooleanVar()
+visible.set(True)
 
 style = ttk.Style(root)
 style.theme_use('clam')
@@ -79,6 +81,7 @@ class HotKeysThread(Thread):
                 '<ctrl>+<alt>+7': setTime7,
                 '<ctrl>+<alt>+8': setTime8,
                 '<ctrl>+<alt>+9': setTime9,
+                '<ctrl>+<alt>+h': toggleHide,
                 '<ctrl>+<shift>+1': setExtraTime1,
                 '<ctrl>+<shift>+2': setExtraTime2,
                 '<ctrl>+<shift>+3': setExtraTime3,
@@ -125,6 +128,14 @@ def clearTime():
     timeLimit.set(0)
     style.configure("red.Horizontal.TProgressbar", text='', foreground='black', background='green')
     run.set(False) 
+
+def toggleHide():
+    if visible.get():
+        root.withdraw()
+        visible.set(False)
+    else:
+        root.deiconify()
+        visible.set(True)
 
 def setTime0():
     processKey('0')

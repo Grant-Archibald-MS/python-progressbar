@@ -63,6 +63,8 @@ The application has the following hot keys defined
 
 \<ctrl\>+\<shift\>+1 - \<ctrl>+\<shift\>+9 Set Time Extra time 1 - 5 minutes
 
+\<ctrl\>+\<alt\>+h - Hide / show the progress bar
+
 ## Configuration
 
 The [config.json](./config.json) provides you the ability to change:
