@@ -8,9 +8,13 @@ from tkinter import *
 from pynput import keyboard
 import time
 import os
+import json
 
 from threading import Thread
 import time
+
+with open("config.json", "r") as f:
+    config = json.load(f)
 
 root = Tk()
 timeLimit = IntVar()
@@ -34,7 +38,7 @@ style.layout('red.Horizontal.TProgressbar',
               ('Horizontal.Progressbar.label', {'sticky': 'nswe'})])
         
 # set initial text
-style.configure('red.Horizontal.TProgressbar', text='0 %', anchor='center')
+style.configure('red.Horizontal.TProgressbar', text=config['defaultText'], anchor='center')
 # create progressbar
 variable = DoubleVar(root)
 
@@ -42,7 +46,10 @@ variable = DoubleVar(root)
 root.overrideredirect(1)
 # Make the window only fit the progress bar
 # TODO: Change to make position configurable
-root.geometry("200x18+10+20")
+leftLocation = int(config["left"])
+topLocation = int(config["top"])
+
+root.geometry("200x18+{0}+{1}".format(leftLocation, topLocation))
 p = ttk.Progressbar(root, orient="horizontal", length=200, mode="determinate",
                     takefocus=True, maximum=100, style='red.Horizontal.TProgressbar')
 p['value'] = 0
@@ -94,8 +101,8 @@ class MyThread(Thread):
             print(user_input)
 
             # User wishes to exit
-            if user_input == 'e':
-                print('Exiting')
+            if user_input == 'q':
+                print('Quitting')
                 os._exit(0)
                 return
 
@@ -184,32 +191,37 @@ def start():
     root.lift()   
     root.attributes('-topmost', True)
 
+    warnAtPercentage = int(config['warnAtPercentage'])
+    finalAtPercentage = int(config['finalAtPercentage'])
+
     # Check if running and less than 100% complete
     if p['value'] <= 100 and run.get():
         variable.set(round(timeLimit.get() / total.get() * 100,0))
 
         extraLabel = ''
         if extra.get():
-            extraLabel = 'EXTRA '
-            foregroundColor = 'black'
-            backgroundColor = 'red'
+            extraLabel = config["extraLabel"]
+            foregroundColor = config["alternateForeground"]["default"]
+            backgroundColor = config["alternateBackground"]["default"]
         else:
-            foregroundColor = 'black'
-            backgroundColor = 'green'
+            foregroundColor = config["primaryForeground"]["default"]
+            backgroundColor = config["primaryBackground"]["default"]
 
-        if p['value'] > 60 :
+        if p['value'] > warnAtPercentage :
             if extra.get():
-                foregroundColor = 'white'
-                backgroundColor = 'brown'
+                foregroundColor = config["alternateForeground"]["warning"]
+                backgroundColor = config["alternateBackground"]["warning"]
             else:
-                backgroundColor = 'orange'
+                foregroundColor = config["primaryForeground"]["warning"]
+                backgroundColor = config["primaryBackground"]["warning"]
 
-        if p['value'] > 80 :
+        if p['value'] > finalAtPercentage :
             if extra.get():
-                backgroundColor = 'purple'
+                foregroundColor = config["alternateForeground"]["final"]
+                backgroundColor = config["alternateBackground"]["final"]
             else:
-                foregroundColor = 'white'
-                backgroundColor = 'red'
+                foregroundColor = config["primaryForeground"]["final"]
+                backgroundColor = config["primaryBackground"]["final"]
 
         
         style.configure('red.Horizontal.TProgressbar', 
@@ -235,8 +247,9 @@ print(times)
 print("Press Hot Keys <ctrl>-<shift>-1 to  <ctrl>-<shift>-5 to set extra times")
 print(["1","2","3","4","5"])
 print()
-print("e to exit")
+print("q to quit")
 print("Enter number of minutes to countdown in progress")
+print("Need to add extra time? Type e<min> to extend by minutes. For example e1 to extend by extra 1 minute")
 print()
 print('============')
 

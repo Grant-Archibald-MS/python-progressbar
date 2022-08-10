@@ -1,0 +1,28 @@
+{
+    "defaultText": "",
+    "extraLabel": "EXTRA ",
+    "top": 20,
+    "left": 10,
+    "warnAtPercentage": 60,
+    "finalAtPercentage": 80,
+    "primaryBackground": {
+        "default":"green",
+        "warning": "orange",
+        "final": "red"
+    },
+    "primaryForeground": {
+        "default":"black",
+        "warning": "black",
+        "final": "white"
+    },
+    "alternateBackground": {
+        "default":"red",
+        "warning": "blue",
+        "final": "purple"
+    },
+    "alternateForeground": {
+        "default":"black",
+        "warning": "white",
+        "final": "white"
+    }
+}
