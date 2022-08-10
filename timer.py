@@ -7,6 +7,7 @@ from tkinter import ttk
 from tkinter import *
 from pynput import keyboard
 import time
+import os
 
 from threading import Thread
 import time
@@ -89,12 +90,14 @@ class MyThread(Thread):
 
     def run(self):
         while True:
-            user_input = input("What do I do (e or minutes) ? ")
+            user_input = input("What do I do ? ")
             print(user_input)
 
             # User wishes to exit
             if user_input == 'e':
-                sys.exit()
+                print('Exiting')
+                os._exit(0)
+                return
 
             processKey(user_input)
             
@@ -225,12 +228,17 @@ def start():
 
 print('Progress Bar')
 print('============')
+print('Instructions')
 print()
 print("Press Hot Keys <ctrl>-<alt>-1 to  <ctrl>-<alt>-9 to set default times")
 print(times)
 print("Press Hot Keys <ctrl>-<shift>-1 to  <ctrl>-<shift>-5 to set extra times")
 print(["1","2","3","4","5"])
 print()
+print("e to exit")
+print("Enter number of minutes to countdown in progress")
+print()
+print('============')
 
 keys = HotKeysThread()
 
