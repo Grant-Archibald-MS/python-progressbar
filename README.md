@@ -3,11 +3,13 @@
 “Time – the one asset none of us are ever going to get more of.”
 – Gary Vaynerchuk
 
-We have all been in meeting and presentations and found it difficult to manage our time and get keep on time. The Python Progress bar is a very simple sample application that provides a visual guide to your audience to help show progress.
+We have all been in meeting and presentations and found it difficult to manage our time and get keep on time. The Python Progress bar is a very simple open source sample application that provides a visual guide to your audience to help show progress.
 
 The sample application is implemented to be placed over top any window on the main display. As a result it can be included on top of an exiting presentation or live screen sharing session to track progress.
 
 By being outside a presentation or slide you can switch between slides or across applications and still provide the visual cue on progress.
+
+What to understand the motivations behind the app read [More Info](./more-info.md).
 
 ## Getting Started
 
@@ -78,6 +80,24 @@ The [config.json](./config.json) provides you the ability to change:
 1. The alternate colors for extra time with default, warning and final sections of the progress bar
 
 1. The ability to change the warning and final color changes
+
+## Question and Answer
+
+**Why not use tool ABC instead?**
+
+Based on on quick search unable to find an application that met the majority of the criteria described in [More Information](./more-info.md)
+
+**What do I need to get started?**
+
+To build and run from source you will need to download the this Git Repository and use the steps above to install Python and dependencies.
+
+**What about a standalone app?**
+
+That is being considered and based on time may look at creating releases for WIndows and MacOS that removes the need to install Python and dependencies
+
+**It is missing feature XYZ what can I do?**
+
+You could clone the repository and add the new feature(s). Consider creating a pull request. Alternatively you could fork the code and add new functionality.
 
 ## Technical Details
 

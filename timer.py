@@ -16,6 +16,7 @@ import time
 with open("config.json", "r") as f:
     config = json.load(f)
 
+# Setup TK sharable variables to get/set state of the timer
 root = Tk()
 timeLimit = IntVar()
 total = IntVar()
@@ -29,6 +30,8 @@ label = StringVar()
 visible = BooleanVar()
 visible.set(True)
 
+# Configure style of the progress bar
+# Need to set non default theme so can change progress color as percentage changed
 style = ttk.Style(root)
 style.theme_use('clam')
 # add label in the layout
@@ -46,8 +49,9 @@ variable = DoubleVar(root)
 
 # Hide the windows frame
 root.overrideredirect(1)
+
+# Position the progress bar
 # Make the window only fit the progress bar
-# TODO: Change to make position configurable
 leftLocation = int(config["left"])
 topLocation = int(config["top"])
 
@@ -62,7 +66,7 @@ times = []
 with open('times.txt') as f:
     times = f.read().splitlines()
 
-# Use python thread to allow the user to 
+# Use python thread to allow the user to change times via hot keys 
 class HotKeysThread(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -92,7 +96,7 @@ class HotKeysThread(Thread):
     def setTime(val):
         print(val)
 
-# Use python thread to allow the user to 
+# Use python thread to allow the user to enter times via command line interface
 class MyThread(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -111,7 +115,6 @@ class MyThread(Thread):
 
             processKey(user_input)
             
-
 def processKey(val):
     timeLimit.set(0)
     extra.set(False)
@@ -183,6 +186,7 @@ def setExtraTime4():
 def setExtraTime5():
     processKey('e5')
 
+# Set a progress bar time in minutes
 def setTime(value):
     if value == '0':
         clearTime()
@@ -247,7 +251,6 @@ def start():
 
     # Check again in another second
     root.after(1000, start)
-
 
 print('Progress Bar')
 print('============')
