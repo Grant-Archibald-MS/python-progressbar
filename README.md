@@ -102,3 +102,14 @@ You could clone the repository and add the new feature(s). Consider creating a p
 ## Technical Details
 
 This minimal sample application uses the Python [tkinker](https://docs.python.org/3/library/tkinter.html) module to implement a top of screen overlay and progress bar visual.
+
+## Windows Build
+
+You can use pyinstaller to create build
+
+```pwsh
+pip install pyinstaller
+pyinstaller timer.py
+copy config.json dist/timer
+copy times.txt dist/timer
+```
