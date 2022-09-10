@@ -22,10 +22,11 @@ jobs:
       - name: Create Install
         run: pyinstaller timer.py && copy times.txt dist/timer && copy config.json dist/timer
 
-      - name: Zip results
-        run: |
-           zip -r progressbar.zip dist/timer
-        shell: bash
+      - uses: vimtor/action-zip@v1
+        with:
+          files: dist/timer
+          recursive: false
+          dest: progressbar.zip
 
       - name: Create Release
         id: create_release
