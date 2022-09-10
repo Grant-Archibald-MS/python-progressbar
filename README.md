@@ -113,3 +113,5 @@ pyinstaller timer.py
 copy config.json dist/timer
 copy times.txt dist/timer
 ```
+
+You should now be able to execute timer.exe from dist\timer folder
